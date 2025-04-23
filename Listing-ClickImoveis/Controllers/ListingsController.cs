@@ -16,7 +16,7 @@ namespace Listing_ClickImoveis.Controllers
         public async Task<IActionResult> Index()
         {
             var dados = await _context.Listings.ToListAsync();
-            return View(dados); 
+            return View(dados);
         }
 
         public IActionResult Create()
@@ -66,7 +66,33 @@ namespace Listing_ClickImoveis.Controllers
             return View();
         }
 
-       
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            var dados = _context.Listings.Find(id);
+            if (dados == null)
+                return NotFound();
+            return View(dados);
+
+
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+          var dados = await _context.Listings.FindAsync(id);
+
+            _context.Listings.Remove(dados);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+
+            }
         }
     }
+
 

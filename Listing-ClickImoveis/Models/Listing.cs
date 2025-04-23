@@ -52,6 +52,7 @@ namespace Listing_ClickImoveis.Models
         public List<Midia> Midias { get; set; } = new();
 
         // Para imóveis, adicionar a área
+        [Display(Name = "Área em m²")]
         public double? Area { get; set; } // Área em metros quadrados, se aplicável
     }
 }

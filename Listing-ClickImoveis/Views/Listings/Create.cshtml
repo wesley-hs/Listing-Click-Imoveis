@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Listing</h4>
+<h1>Cadastrar Anúncio</h1>
+<!--<h4>Listing</h4>-->
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -43,31 +42,28 @@
                 <span asp-validation-for="CEP" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Preço" class="control-label"></label>
-                <input asp-for="Preço" class="form-control" id="Preço" oninput="formatarPreco(this)" />
+                <label for="precoFormatado" class="control-label">Preço</label>
+                <input type="text" id="precoFormatado" class="form-control" oninput="formatarPreco(this)" />
+                <input type="hidden" asp-for="Preço" id="Preço" />
                 <span asp-validation-for="Preço" class="text-danger"></span>
             </div>
 
             <script>
                 function formatarPreco(input) {
-                    // Remove caracteres não numéricos
-                    let valor = input.value.replace(/[^\d,]/g, '');
+                    const raw = input.value.replace(/[^\d]/g, '');
+                    const number = parseFloat(raw) / 100;
 
-                    // Substitui a vírgula por ponto
-                    valor = valor.replace(",", ".");
+                    // Formata com R$ e vírgula (pt-BR)
+                    input.value = number.toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
 
-                    // Adiciona formatação de ponto para milhares e vírgula para decimais
-                    if (valor.length > 3) {
-                        valor = valor.replace(/(\d)(\d{3})(\d{3})$/, '$1.$2.$3');  // Adiciona ponto para milhares
-                    }
-
-                    if (valor.length > 6) {
-                        valor = valor.replace(/(\d)(\d{3})(\d{3})(\d{3})$/, '$1.$2.$3.$4');  // Adiciona ponto para milhares
-                    }
-
-                    input.value = valor;
+                    // Atualiza o valor real para o hidden input (com ponto)
+                    document.getElementById('Preço').value = number.toFixed(2);
                 }
             </script>
+
 
 
 
@@ -103,16 +99,14 @@
                 <input asp-for="Area" class="form-control" />
                 <span asp-validation-for="Area" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group"> 
+                <a class="btn btn-warning" asp-action="Index">Voltar</a> |
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
