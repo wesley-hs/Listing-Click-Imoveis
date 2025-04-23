@@ -18,5 +18,55 @@ namespace Listing_ClickImoveis.Controllers
             var dados = await _context.Listings.ToListAsync();
             return View(dados); 
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Listing listing)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _context.Listings.Add(listing);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(listing);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dados = await _context.Listings.FindAsync(id);
+
+            if (dados == null)
+                return NotFound();
+            return View(dados);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Listing listing)
+        {
+            if (id != listing.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                _context.Listings.Update(listing);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+
+            }
+
+            return View();
+        }
+
+       
+        }
     }
-}
+

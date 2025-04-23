@@ -1,5 +1,11 @@
 using Listing_ClickImoveis.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+
+var cultureInfo = new CultureInfo("pt-BR");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
