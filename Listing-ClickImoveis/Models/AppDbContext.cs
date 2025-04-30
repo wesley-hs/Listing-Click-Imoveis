@@ -8,7 +8,9 @@ namespace Listing_ClickImoveis.Models
         {
         }
         public DbSet<Listing> Listings { get; set; }
-        public DbSet<Midia> Midias { get; set; }
+
+        public DbSet<Imovel> Imoveis { get; set; }
+
     }
 }
    

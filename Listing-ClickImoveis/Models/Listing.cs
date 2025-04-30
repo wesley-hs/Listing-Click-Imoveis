@@ -49,7 +49,6 @@ namespace Listing_ClickImoveis.Models
         public string TipoAnuncio { get; set; }
 
         // Imagens/Vídeos relacionados ao anúncio
-        public List<Midia> Midias { get; set; } = new();
 
         // Para imóveis, adicionar a área
         [Display(Name = "Área em m²")]

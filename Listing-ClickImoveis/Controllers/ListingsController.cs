@@ -66,6 +66,16 @@ namespace Listing_ClickImoveis.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            var dados = await _context.Listings.FindAsync(id);
+            if (dados == null)
+                return NotFound();
+            return View(dados);
+        }
+
         public IActionResult Delete(int? id)
         {
             if (id == null)

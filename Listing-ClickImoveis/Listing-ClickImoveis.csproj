@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\PucListingsController.cs" />
+    <Compile Remove="Migrations\20250423012439_M02-AddTableMidia.cs" />
+    <Compile Remove="Migrations\20250423012439_M02-AddTableMidia.Designer.cs" />
+    <Compile Remove="Models\Midia.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\img\602045013.jpg" />
   </ItemGroup>
 
